@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  server:
+    container_name: server
+    build:
+      context: ./server/.
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5555:5555"
+    volumes:
+      - server_vol:/app
+    
+volumes:
+  server_vol:
+    name: server_vol
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/server/srcs"

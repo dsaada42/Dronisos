@@ -1,0 +1,28 @@
+FROM node:17.9.0-alpine3.15 AS base
+
+WORKDIR /app
+COPY ./srcs/package*.json ./
+RUN npm install
+COPY ./srcs .
+
+#Linting
+FROM base as linter
+
+WORKDIR /app
+RUN npm run lint
+
+#Building
+FROM linter as builder
+
+WORKDIR /app
+RUN npm run build
+
+#Prod
+FROM node:17.9.0-alpine3.15
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --only=production
+COPY --from=builder /app/dist ./
+EXPOSE 3000
+ENTRYPOINT ["node","./app.js"]
