@@ -11,6 +11,7 @@ services:
       - "5555:5555/udp"
     volumes:
       - server_vol:/app
+      - logs_vol:/logs
     environment:
       - "PORT=5555"
       - "LOGRANGE=5000"
@@ -23,3 +24,10 @@ volumes:
       type: none
       o: bind
       device: "${PWD}/server/srcs"
+  logs_vol:
+    name: logs_vol
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/logs"

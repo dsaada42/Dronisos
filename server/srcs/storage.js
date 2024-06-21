@@ -60,7 +60,7 @@ class MessageQueueHandlerSingleton {
     saveArrayToLog(){
         //create log file named after the timestamp of first element in array
         const date = new Date(this.savingArray[0].timestamp);
-        var file = fs.createWriteStream(date.toISOString());
+        var file = fs.createWriteStream("/logs/" + date.toISOString());
         this.savingArray.forEach(function(v) { file.write(JSON.stringify(v) + '\n'); });
         file.end();
         //reset array to new empty array
@@ -72,7 +72,6 @@ class MessageQueueHandlerSingleton {
         this.queue.enqueue({timestamp: timestamp, name: message.name, message: message});
         //check oldest timestamp , if timestamp older than 60sec , dequeue last element
         var oldest = this.queue.peek();
-        console.log(timestamp - oldest.timestamp);
         while ( timestamp - oldest.timestamp > process.env.LOGRANGE){
             const element = this.queue.dequeue();
             //check if older than 60s after first savingArray element timestamp
@@ -88,13 +87,6 @@ class MessageQueueHandlerSingleton {
     }
     dequeueMessage(){
         return this.queue.dequeue();
-    }
-    //iterate through all entries
-    logContent(){
-        console.log("LOGGING QUEUE CONTENT");
-        for (const [key, value] of Object.entries(this.queue.items)){
-            console.log(`${key}: ${JSON.stringify(value)}`);
-        }
     }
 }
 

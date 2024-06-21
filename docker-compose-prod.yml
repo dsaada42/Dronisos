@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  server:
+    container_name: server
+    image: dsaada/dronisos:serverv0.01
+    build:
+      context: ./server/.
+      dockerfile: Dockerfile.prod
+    ports:
+      - "5555:5555/tcp"
+      - "5555:5555/udp"
+    environment:
+      - "PORT=5555"
+      - "LOGRANGE=5000"
+    volumes:
+      - logs_vol:/logs
+
+
+volumes:
+  logs_vol:
+      name: logs_vol
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: "${PWD}/logs"

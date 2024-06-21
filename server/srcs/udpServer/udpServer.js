@@ -12,9 +12,9 @@ function initUdpServer(port) {
     udpServer.on('message', (msg, rinfo) => {
         //parse json message
         const json = JSON.parse(msg);
-        // console.log("message received from drone: " + json.name + json.position);
         // store result in data structure
-        messageQueueHandler.enqueueMessage({name: json.name, position: json.position})
+        // messageQueueHandler.enqueueMessage({name: json.name, position: json.position});
+        messageQueueHandler.enqueueMessage(json);
     })
 
     udpServer.on('listening', () => {
