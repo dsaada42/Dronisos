@@ -12,7 +12,7 @@ services:
       - "5555:5555/udp"
     environment:
       - "PORT=5555"
-      - "LOGRANGE=5000"
+      - "LOGRANGE=60000"
     volumes:
       - logs_vol:/logs
 
