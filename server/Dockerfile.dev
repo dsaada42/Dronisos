@@ -6,6 +6,7 @@ COPY ./srcs .
 
 RUN npm install
 
-EXPOSE 5555
+EXPOSE 5555/tcp
+EXPOSE 5555/udp
 
 CMD [ "npm", "run", "dev" ]

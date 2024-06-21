@@ -7,9 +7,13 @@ services:
       context: ./server/.
       dockerfile: Dockerfile.dev
     ports:
-      - "5555:5555"
+      - "5555:5555/tcp"
+      - "5555:5555/udp"
     volumes:
       - server_vol:/app
+    environment:
+      - "PORT=5555"
+      - "LOGRANGE=5000"
     
 volumes:
   server_vol:
