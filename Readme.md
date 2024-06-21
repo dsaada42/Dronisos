@@ -34,7 +34,7 @@ make up
 ```
 (ou make up_prod pour utiliser l'image de production)
 
-Les endpoints pour recuperer les donnees des 60 dernieres secondes pour tous les drones:
+Les endpoints pour recuperer les donnees des X dernieres secondes pour tous les drones:
 ```
 localhost:5555/
 ```
@@ -42,4 +42,6 @@ pour récupérer les données d'un seul drone:
 ```
 localhost:5555/id
 ```
+
+PS: X est parametrable via le docker-compose et/ou docker-compose-prod via la variable LOGRANGE
 
